@@ -29,5 +29,7 @@ namespace rentMyJunk.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<rentMyJunk.Models.Item> Items { get; set; }
     }
 }
