@@ -3,6 +3,7 @@ using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using rentMyJunk.Providers;
 
@@ -32,8 +33,17 @@ namespace rentMyJunk.Models
         }
 
         //Saves a new piece of junk
-        public Task<ResourceResponse<Document>> SaveItem(Item item)
+        public Task<ResourceResponse<Document>> SaveItem(Item item, Stream image)
         {
+            BlobStorage blob = new BlobStorage();
+
+            //Create the new guid for the item.
+            item.id = new System.Guid().ToString();
+
+            //Save the blob stream with the guid and update the imageuri.
+            item.imageUri = blob.SaveBlob(item.id, image);
+            
+            //save the item to docuemntdb.
             return Client.CreateDocumentAsync(Collection.DocumentsLink, item);
         }
 
