@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RentAnything.Providers
+namespace rentMyJunk.Providers
 {
     public class DocumentDb
     {
