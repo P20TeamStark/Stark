@@ -19,7 +19,14 @@ namespace rentMyJunk.Controllers
         // GET: Items
         public ActionResult Index()
         {
-            return View(db.Items.ToList());
+            var items = repo.GetItemsAsync();
+
+            if (items.Result != null)
+            {
+                return View(items.Result.ToList());
+            }
+            else
+                return HttpNotFound();
         }
 
         public ActionResult ByCategory(string cat)
@@ -28,9 +35,10 @@ namespace rentMyJunk.Controllers
 
             if (items.Result != null)
             {
-                return View(items.Result); 
+                return View(items.Result.Where(i=>i.category==cat).ToList()); 
             }
-            return View();
+            else 
+                return HttpNotFound();
         }
 
         // GET: Items/Details/5
