@@ -42,9 +42,9 @@ namespace rentMyJunk.Models
 
             //Save the blob stream with the guid and update the imageuri.
             item.imageUri = blob.SaveBlob(item.id, image);
-            
+
             //save the item to docuemntdb.
-            return Client.CreateDocumentAsync(Collection.DocumentsLink, item);
+            return Client.CreateDocumentAsync(Collection.DocumentsLink, item);           
         }
 
         //Updates a piece of junk.

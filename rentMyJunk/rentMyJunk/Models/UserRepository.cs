@@ -23,10 +23,10 @@ namespace rentMyJunk.Models
         }
 
         //Gets a user by their id.
-        public Task<Request> GetUserAsync(string id)
+        public Task<User> GetUserAsync(string id)
         {
             return Task<User>.Run(() =>
-                Client.CreateDocumentQuery<Request>(Collection.DocumentsLink)
+                Client.CreateDocumentQuery<User>(Collection.DocumentsLink)
                 .Where(r => r.id == id)
                 .AsEnumerable()
                 .FirstOrDefault());
@@ -35,8 +35,6 @@ namespace rentMyJunk.Models
         //Saves a new user
         public Task<ResourceResponse<Document>> SaveUser(User user)
         {
-            user.id = System.Guid.NewGuid().ToString();
-
             //save the item to docuemntdb.
             return Client.CreateDocumentAsync(Collection.DocumentsLink, user);
         }
