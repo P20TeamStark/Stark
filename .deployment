@@ -1,2 +1,3 @@
 [config]
+project = rentMyJunk\rentMyJunk\rentMyJunk.csproj
 command = deploy.cmd
