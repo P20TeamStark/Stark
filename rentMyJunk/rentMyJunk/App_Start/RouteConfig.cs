@@ -14,6 +14,12 @@ namespace rentMyJunk
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "ItemsByCat",
+               url: "Items/ByCategory/{cat}",
+               defaults: new { controller = "Items", action = "ByCategory", cat = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
@@ -24,11 +30,7 @@ namespace rentMyJunk
                defaults: new { controller = "Items", action = "Index", id = UrlParameter.Optional }
            );
 
-            routes.MapRoute(
-               name: "ItemsByCat",
-               url: "{controller}/{action}/{cat}",
-               defaults: new { controller = "Items", action = "ByCategory" }
-           );
+            
         }
     }
 }
