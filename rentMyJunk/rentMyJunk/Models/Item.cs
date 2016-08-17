@@ -10,6 +10,8 @@ namespace rentMyJunk.Models
         public string category { get; set; }
         public string imageUri { get; set; }
         public string ownerId { get; set; }
-        public bool isAvailable { get; set; }       
+        public bool isAvailable { get; set; }
+        public string ratePerDay { get; set; }
+
     }
 }

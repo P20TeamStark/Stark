@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using rentMyJunk.Models;
 
 namespace rentMyJunk.Controllers
@@ -13,17 +14,23 @@ namespace rentMyJunk.Controllers
     public class ItemsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ItemRepository repo = new ItemRepository();
 
         // GET: Items
         public ActionResult Index()
         {
-           
             return View(db.Items.ToList());
         }
 
         public ActionResult ByCategory(string cat)
         {
-            return View(db.Items.Where(i=>i.category==cat).ToList());
+            var items = repo.GetItemsAsync();
+
+            if (items.Result != null)
+            {
+                return View(items.Result); 
+            }
+            return View();
         }
 
         // GET: Items/Details/5
@@ -54,6 +61,8 @@ namespace rentMyJunk.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,description,category,imageUri,ownerId,isAvailable")] Item item)
         {
+            // stream needed
+            // 
             if (ModelState.IsValid)
             {
                 db.Items.Add(item);
