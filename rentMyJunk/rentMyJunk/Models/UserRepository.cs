@@ -35,6 +35,8 @@ namespace rentMyJunk.Models
         //Saves a new user
         public Task<ResourceResponse<Document>> SaveUser(User user)
         {
+            user.id = System.Guid.NewGuid().ToString();
+
             //save the item to docuemntdb.
             return Client.CreateDocumentAsync(Collection.DocumentsLink, user);
         }
