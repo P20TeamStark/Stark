@@ -38,7 +38,7 @@ namespace rentMyJunk.Models
             BlobStorage blob = new BlobStorage();
 
             //Create the new guid for the item.
-            item.id = new System.Guid().ToString();
+            item.id = System.Guid.NewGuid().ToString();
 
             //Save the blob stream with the guid and update the imageuri.
             item.imageUri = blob.SaveBlob(item.id, image);
