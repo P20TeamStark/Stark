@@ -33,8 +33,9 @@ namespace rentMyJunk.Models
         }
 
         //Saves a new piece of junk
-        public Task<ResourceResponse<Document>> SaveItem(Request request)
+        public Task<ResourceResponse<Document>> SaveRequest(Request request)
         {
+            request.id = System.Guid.NewGuid().ToString();
             //save the item to docuemntdb.
             return Client.CreateDocumentAsync(Collection.DocumentsLink, request);
         }
