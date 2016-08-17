@@ -40,3 +40,18 @@ textarea {
     width: 100px;
     height: 100px;
 }
+
+.home-page-icon-frame {
+    margin: 20px 0px 10px 0px;
+    padding: 20px 5px 10px 0px;
+    text-align: center;
+}
+
+.home-top-banner {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.icon-header {
+    margin-bottom: 0px;
+}

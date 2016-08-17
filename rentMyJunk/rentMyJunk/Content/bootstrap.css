@@ -1241,9 +1241,9 @@ pre code {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 700px) {
   .container {
-    max-width: 1170px;
+    max-width: 750px;
   }
   .col-lg-1,
   .col-lg-2,
