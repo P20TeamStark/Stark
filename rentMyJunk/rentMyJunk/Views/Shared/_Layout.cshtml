@@ -14,17 +14,34 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Rent My Junk", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <h3>
+                    @Html.ActionLink("Rent My Junk", "Index", "Home")
+                </h3>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="./">John Powell<span class="sr-only">(current)</span></a></li>
-                    <li>
+                    @*<li><a href="./">John Powell<span class="sr-only">(current)</span></a></li>*@
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <li>
+                            @Html.ActionLink("Login", "SignInB2E", "Account")
+                        </li>
+                    }
+                    else
+                    {
+                        <li><p>"@User.Identity.Name"</p></li>
+                        <li><a href="./">Sign Out<span class="sr-only">(current)</span></a></li>
+                        <li>@Html.ActionLink("My Junk", "Index", "Items")</li>
+                    }
+                   
+                    @*<li>
                         <a href="~/Content/imgs/profile-img.jpg">
-                            <img src="~/Content/imgs/profile-img.jpg" width="20" height="20" alt="profile logo"/>
+                            <img src="~/Content/imgs/profile-img.jpg" width="20" height="20" alt="profile logo" />
                         </a>
-                    </li>
-                    <li><a href="./">My Junk<span class="sr-only">(current)</span></a></li>
+                    </li>*@
+
+                    @*@Html.ActionLink("Login", "SignOut", "Account")*@
+
                 </ul>
             </div>
         </div>

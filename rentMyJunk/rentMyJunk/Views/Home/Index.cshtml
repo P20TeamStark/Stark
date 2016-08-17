@@ -1,11 +1,24 @@
 ﻿
-
-<div class="row">
-    <div class="home-top-banner col-md-6 col-md-offset-4">
-        <h2><a href="./">Got Some Junk?</a></h2>
+@if (!Request.IsAuthenticated)
+{
+    <div class="row">
+        <div class="home-top-banner col-md-12">
+            <h2>
+                @Html.ActionLink("Got Junk", "SignInB2E", "Account")
+            </h2>
+        </div>
     </div>
-</div>
-
+}
+else
+{
+    <div class="row">
+        <div class="home-top-banner col-md-6 col-md-offset-4">
+            <h2>
+                @Html.ActionLink("Got Junk?", "Create", "Items")
+            </h2>
+        </div>
+    </div>
+}
 <div class="row">
     <div class="home-page-icon-frame col-md-4">
         <a href="~/Items/ByCategory/Tools" class="home-page-icon-frame">
