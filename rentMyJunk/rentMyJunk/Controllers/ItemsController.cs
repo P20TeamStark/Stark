@@ -33,7 +33,12 @@ namespace rentMyJunk.Controllers
                 if (string.IsNullOrEmpty(category))
                 {
                     if (string.IsNullOrEmpty(userId))
+                    {
+                        ViewBag.header = "Available Junk";
                         return View(items.ToList());
+                    }
+
+                    ViewBag.header = "Your Junk";
 
                     items = items.Where(i => i.ownerId == userId).ToList();
                     return View(items.ToList());
@@ -41,27 +46,18 @@ namespace rentMyJunk.Controllers
                 else 
                 {
                     items = items.Where(i => i.category == category).ToList();
-
                     if (string.IsNullOrEmpty(userId))
+                    {
+                        ViewBag.header = "All Junk in the " + category + " category";
                         return View(items.ToList());
+                    }
 
+                    ViewBag.header = "All your Junk in the " + category + " category";
                     items = items.Where(i => i.ownerId == userId).ToList();
                     return View(items.ToList());
                 }
             }
             return HttpNotFound();
-        }
-
-        public ActionResult ByCategory(string cat)
-        {
-            var items = repo.GetItemsAsync();
-
-            if (items.Result != null)
-            {
-                return View(items.Result.Where(i=>i.category==cat).ToList()); 
-            }
-            else 
-                return HttpNotFound();
         }
 
         // GET: Items/Details/5
