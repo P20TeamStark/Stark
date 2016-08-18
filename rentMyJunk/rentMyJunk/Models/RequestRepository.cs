@@ -25,7 +25,7 @@ namespace rentMyJunk.Models
         //Gets a piece of junk by its id.
         public Task<Request> GetRequestAsync(string id)
         {
-            return Task<Item>.Run(() =>
+            return Task<Request>.Run(() =>
                 Client.CreateDocumentQuery<Request>(Collection.DocumentsLink)
                 .Where(r => r.id == id)
                 .AsEnumerable()

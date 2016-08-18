@@ -51,21 +51,10 @@ namespace ConsoleApplication1
             */
             
             ItemRepository ir = new ItemRepository();
-            string path;
-            FileStream fs;
+            Item i = ir.GetItemAsync("20a5cae4-e7bc-4e44-b0c2-ded30fa67ff9").Result;
 
-            Item i = new Item();
-            i.category = "Recreational";
-            i.isAvailable = true; //"true";
-            i.ownerId = "cmitchell@hardnox.onmicrosoft.com";
-            i.description = "2016 KHS Flite 900 - 2";
-            i.ratePerDay = "75";
-            path = @"c:\projects\file.jpeg";
-            fs = File.OpenRead(path);
-
-            t = ir.SaveItem(i, fs);
-            t.Wait();
-            /*
+            i.description = "foo";
+             /*
 
             i.category = "Recreational";
             i.isAvailable = "true";
@@ -89,36 +78,29 @@ namespace ConsoleApplication1
             t = ir.SaveItem(i, fs);
             t.Wait();
             */
-            /*
+            
             RequestRepository rr = new RequestRepository();
-
+            /*
             Request r = new Request();
-            r.itemId = "6546e87a-fd1f-4a71-91e9-55d50cc634a1";
-            r.ownerId = "patman@hardnox.onmicrosoft.com";
+            r.itemId = "20a5cae4-e7bc-4e44-b0c2-ded30fa67ff9";
+            r.ownerId = "bob@hardnox.onmicrosoft.com";
             r.requesterId = "cmitchell@hardnox.onmicrosoft.com";
             r.startDate = DateTime.Today;
-            r.endDate = DateTime.Today;
+            r.endDate = DateTime.Today.AddDays(5);
             t = rr.SaveRequest(r);
             t.Wait();
 
 
-            r.itemId = "6546e87a-fd1f-4a71-91e9-55d50cc634a1";
-            r.ownerId = "patman@hardnox.onmicrosoft.com";
-            r.requesterId = "bob@hardnox.onmicrosoft.com";
+            r.itemId = "20a5cae4-e7bc-4e44-b0c2-ded30fa67ff9";
+            r.ownerId = "bob@hardnox.onmicrosoft.com";
+            r.requesterId = "patman@hardnox.onmicrosoft.com";
             r.startDate = DateTime.Today;
-            r.endDate = DateTime.Today;
-            t = rr.SaveRequest(r);
-            t.Wait();
-
-
-            r.itemId = "6546e87a-fd1f-4a71-91e9-55d50cc634a1";
-            r.ownerId = "patman@hardnox.onmicrosoft.com";
-            r.requesterId = "dustin@hardnox.onmicrosoft.com";
-            r.startDate = DateTime.Today;
-            r.endDate = DateTime.Today;
+            r.endDate = DateTime.Today.AddDays(2);
             t = rr.SaveRequest(r);
             t.Wait();
             */
+
+            
         }
     }
 }
