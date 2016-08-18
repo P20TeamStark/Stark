@@ -31,7 +31,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <WebView x:Name="webView" 
-                     Source="http://rentmyjunk.azurewebsites.net"
+                     Source="{Binding DashboardUrl}"
                      Grid.Row="0"
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Stretch"/>
@@ -49,7 +49,7 @@
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Width="160" Margin="10">
-                                <Image Width="120" Height="120" Source="{Binding imageUri}" />
+                                <Image Width="120" Height="120" Source="{Binding imageUri}" PointerPressed="Image_PointerPressed" />
                                 <TextBlock Text="{Binding id}" TextAlignment="Center" FontSize="24" />
                             </StackPanel>
 

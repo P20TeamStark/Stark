@@ -11,6 +11,25 @@ namespace rentMyJunkUWP.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+
+        private string dashboardBaseUrl = "http://rentmyjunk-staging.azurewebsites.net/home/dashboard";
+
+        public string DashoardBaseUrl
+        {
+            get { return dashboardBaseUrl; }
+            set { Set(ref dashboardBaseUrl,value); }
+        }
+
+
+        private string dashboardUrl;
+
+        public string DashboardUrl
+        {
+            get { return dashboardUrl; }
+            set { Set(ref dashboardUrl, value); }
+        }
+
+
         private List<Category> categories = new List<Category> {
             new Category() { id="Equipment", imageUri="ms-appx:///Assets/CategoryImages/equipment.jpg" },
             new Category() { id="Houseware", imageUri="ms-appx:///Assets/CategoryImages/housewares.jpg" },
@@ -24,6 +43,11 @@ namespace rentMyJunkUWP.ViewModels
         {
             get { return categories; }
             set { Set(ref categories, value); }
+        }
+
+        public MainPageViewModel()
+        {
+            DashboardUrl = DashoardBaseUrl;
         }
 
     }

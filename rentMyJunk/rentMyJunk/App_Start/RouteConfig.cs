@@ -20,6 +20,18 @@ namespace rentMyJunk
            );
 
             routes.MapRoute(
+               name: "RequestByItem",
+               url: "Request/Index/{itemId}",
+               defaults: new { controller = "Request", action = "Index", itemId = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+               name: "CreateRequest",
+               url: "Request/Create/{request}",
+               defaults: new { controller = "Request", action = "Create", request = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
                name: "ItemsByCat2",
                url: "Items/{action}/{category}/{userId}",
                defaults: new { controller = "Items", action = "Index", category = UrlParameter.Optional, userId = UrlParameter.Optional }
