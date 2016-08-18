@@ -33,7 +33,7 @@ namespace rentMyJunk.Models
         }
 
         //Saves a new piece of junk
-        public async Task<Item> SaveItem(Item item, Stream image)
+        public Task<ResourceResponse<Document>> SaveItem(Item item, Stream image)
         {
             BlobStorage blob = new BlobStorage();
 
@@ -44,9 +44,8 @@ namespace rentMyJunk.Models
             item.imageUri = blob.SaveBlob(item.id, image);
 
             //save the item to docuemntdb.
-            Document d = await Client.CreateDocumentAsync(Collection.DocumentsLink, item);
-            
-            return item;      
+            return  Client.CreateDocumentAsync(Collection.DocumentsLink, item);
+                  
         }
 
         //Updates a piece of junk.
