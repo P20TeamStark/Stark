@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using rentMyJunk.Models;
 using rentMyJunk.ViewModels;
+using System.Threading.Tasks;
 
 namespace rentMyJunk.Controllers
 {
@@ -118,8 +119,8 @@ namespace rentMyJunk.Controllers
                     using (MemoryStream ms = new MemoryStream())
                     {
                         item.ImgFile.InputStream.CopyTo(ms);
-                        var res = repo.SaveItem(item, ms);
-                        //res.Wait(); 
+                        Task t  = repo.SaveItem(item, ms);
+                        //t.Wait();
                     }
                 }
 
@@ -155,7 +156,7 @@ namespace rentMyJunk.Controllers
             {
                 // db.Entry(item).State = EntityState.Modified;
                 //  db.SaveChanges();
-                var saveResult = this.repo.SaveItem(item, null).Result;
+                var saveResult = this.repo.SaveItem(item, null);
 
                 // if isAvailable is set to false, assume en edit was a booking
                 if (!Convert.ToBoolean(item.isAvailable))
