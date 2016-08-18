@@ -407,7 +407,6 @@
     <Content Include="Views\Items\Details.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
-    <Content Include="Views\Items\ByCategory.cshtml" />
     <Content Include="Views\Request\Index.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>

@@ -25,7 +25,8 @@ namespace rentMyJunkUWP.Views
                     //&$filter=tablename/fieldname+eq+'countryName' 
                     if (viewModel != null)
                     {
-                        viewModel.DashboardUrl = string.Format("{0}&$filter=District/District+eq+'FD - 01'", viewModel.DashoardBaseUrl);
+                        //Skipping the dashboard URL update
+                        //viewModel.DashboardUrl = string.Format("{0}&$filter=District/District+eq+'FD - 01'", viewModel.DashoardBaseUrl);
                     }
                 }
             }
