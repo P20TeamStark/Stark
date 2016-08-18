@@ -31,7 +31,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <WebView x:Name="webView" 
-                     Source="http://rentmyjunk.azurewebsites.net"
+                     Source="https://localhost:44316/Home/Dashboard"
                      Grid.Row="0"
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Stretch"/>
