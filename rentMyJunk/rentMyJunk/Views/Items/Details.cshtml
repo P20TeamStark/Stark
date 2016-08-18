@@ -58,7 +58,7 @@ else
 {
     <div class="row">
         <div class="col-md-3 col-md-offset-6" style="text-align: right">
-            <a href="@Url.Action("Edit", "Items", new {id = Model.id})"><input type="button" value="Request to Rent!" class="btn btn-primary" /></a>
+            <a href="@Url.Action("Index", new { controller = "Request", action = "Index", itemId = Model.id })"><input type="button" value="Request to Rent!" class="btn btn-primary" /></a>
         </div>
     </div>
 }
