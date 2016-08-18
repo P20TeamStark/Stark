@@ -383,6 +383,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\powerbi.js" />
+    <Content Include="Scripts\powerbi.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config">
@@ -410,6 +412,7 @@
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Request\Index.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Scripts\powerbi.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

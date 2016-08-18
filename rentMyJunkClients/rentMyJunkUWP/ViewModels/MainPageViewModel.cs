@@ -11,10 +11,11 @@ namespace rentMyJunkUWP.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+    //https://localhost:44316/home/dashboard
+    //private string dashboardBaseUrl = "http://rentmyjunk-staging.azurewebsites.net/home/dashboard";
+    private string dashboardBaseUrl = "https://localhost:44316/home/dashboard";
 
-        private string dashboardBaseUrl = "http://rentmyjunk-staging.azurewebsites.net/home/dashboard";
-
-        public string DashoardBaseUrl
+    public string DashoardBaseUrl
         {
             get { return dashboardBaseUrl; }
             set { Set(ref dashboardBaseUrl,value); }
