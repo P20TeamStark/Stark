@@ -20,16 +20,36 @@ namespace rentMyJunk.Controllers
         private ItemRepository repo = new ItemRepository();
 
         // GET: Items
-        public ActionResult Index()
-        {
-            var items = repo.GetItemsAsync();
+        // by cat - ano, user
+        // all - ano, user
+        // my stuff only - user
 
-            if (items.Result != null)
+        public ActionResult Index(string category, string userId)
+        {
+            var items = repo.GetItemsAsync().Result;
+
+            if (items != null)
             {
-                return View(items.Result.ToList());
+                if (string.IsNullOrEmpty(category))
+                {
+                    if (string.IsNullOrEmpty(userId))
+                        return View(items.ToList());
+
+                    items = items.Where(i => i.ownerId == userId).ToList();
+                    return View(items.ToList());
+                }
+                else 
+                {
+                    items = items.Where(i => i.category == category).ToList();
+
+                    if (string.IsNullOrEmpty(userId))
+                        return View(items.ToList());
+
+                    items = items.Where(i => i.ownerId == userId).ToList();
+                    return View(items.ToList());
+                }
             }
-            else
-                return HttpNotFound();
+            return HttpNotFound();
         }
 
         public ActionResult ByCategory(string cat)

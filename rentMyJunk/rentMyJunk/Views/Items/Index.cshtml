@@ -21,19 +21,13 @@ else
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.description)
+           Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.category)
+            Category
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.imageUri)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ownerId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isAvailable)
+           Available?
         </th>
         <th></th>
     </tr>
@@ -45,12 +39,6 @@ else
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imageUri)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ownerId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.isAvailable)

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,28 +21,29 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    
                     @*<li><a href="./">John Powell<span class="sr-only">(current)</span></a></li>*@
                     @if (!Request.IsAuthenticated)
                     {
                         <li>
-                            @Html.ActionLink("Login", "SignInB2E", "Account")
+                            @Html.ActionLink("SignUp/Login!", "SignInB2E", "Account")
                         </li>
                     }
                     else
                     {
-                        <li><p>"@User.Identity.Name"</p></li>
-                        <li><a href="./">Sign Out<span class="sr-only">(current)</span></a></li>
-                        <li>@Html.ActionLink("My Junk", "Index", "Items")</li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span>
+                                    <img src="~/Content/imgs/profile-img.jpg" width="20" height="20" alt="profile logo" />
+                                </span>&nbsp;@User.Identity.GetUserName()<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("My Junk", "Index", "Items")</li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href=@Url.Action("SignOut", "Account")>Sign Out<span class="sr-only">(current)</span></a></li>
+                            </ul>
+                        </li>
                     }
-                   
-                    @*<li>
-                        <a href="~/Content/imgs/profile-img.jpg">
-                            <img src="~/Content/imgs/profile-img.jpg" width="20" height="20" alt="profile logo" />
-                        </a>
-                    </li>*@
-
-                    @*@Html.ActionLink("Login", "SignOut", "Account")*@
-
                 </ul>
             </div>
         </div>
