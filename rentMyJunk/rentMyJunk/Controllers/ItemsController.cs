@@ -82,32 +82,12 @@ namespace rentMyJunk.Controllers
         }
 
 
-        // POST: Items/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        public ActionResult FileUpload(HttpPostedFileBase file)
-        {
-            if (file != null)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    
-                }
-
-            }
-            // after successfully uploading redirect the user
-            return RedirectToAction("Create", "Items");
-        }
-
-        [HttpPost]
+      [HttpPost]
         public ActionResult Create(ItemViewModel item)
         {
             if (ModelState.IsValid)
             {
-                var userId = User.Identity.Name;
-                item.ownerId = userId; 
+                item.ownerId = User.Identity.Name;
 
                 if (item.ImgFile != null)
                 {
