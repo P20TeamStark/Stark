@@ -1,0 +1,31 @@
+﻿@using rentMyJunk.Models
+
+
+@{ 
+    Layout = "";
+}
+
+@model ReportViewModel
+
+<html>
+<head>
+    <script src="~/Scripts/powerbi.js"></script>
+    <script>
+    window.addEventListener('DOMContentLoaded', function () {
+        powerbi.init();
+    });
+    </script>
+</head>
+<body>
+    <div class="side-body padding-top">
+        @Html.PowerBIReportFor(m => m.Report, new { style = "height:100vh", powerbi_access_token = Model.AccessToken })
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
