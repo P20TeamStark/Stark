@@ -62,7 +62,7 @@ namespace rentMyJunk.Controllers
         [HttpPost]
         public ActionResult Create(Request request)
         {
-            var item = repo.GetItemAsync(request.itemId).Result;
+           // var item = repo.GetItemAsync(request.itemId).Result;
 
             request.id = Guid.NewGuid().ToString();
             request.startDate = DateTime.Now;
@@ -81,7 +81,7 @@ namespace rentMyJunk.Controllers
                 string message = string.Format(
                     "A request for item <a href=\"https://localhost:44316/Items/Details?id={0}\">{1}</a> has been made by {2} for {3} to {4}.  <a href=\"https://localhost:44316/Approval/Index?requestId={5}\" > Approve</a> or <a href=\"https://localhost:44316/Items/Details?id={5}\" > Deny</a>",
                     request.itemId,
-                    item.description,
+                    "Fancy Expresso Machine",
                     User.Identity.Name,
                     DateTime.Now.ToString(),
                     DateTime.Now.AddDays(7).ToString(),
