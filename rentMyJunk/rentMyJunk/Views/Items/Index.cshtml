@@ -4,18 +4,7 @@
     ViewBag.Title = "Index";
 }
 <div class="row">
-    <h2>@ViewBag.header</h2>
-
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="col-md-2 col-md-offset-5" style="margin: 5px">
-            <a class="btn btn-default" role="button" href=@Url.Action("Create", "Items")><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-        </div>
-    }
-    else
-    {
-        <h2>Junk Available</h2>
-    }
+    <h2 class="app-page-headers">@ViewBag.header</h2>
 </div>
 
 <div class="row">

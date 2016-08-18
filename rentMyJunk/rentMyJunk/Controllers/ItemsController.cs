@@ -63,11 +63,15 @@ namespace rentMyJunk.Controllers
         // GET: Items/Details/5
         public ActionResult Details(string id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Item item = db.Items.Find(id);
+
+            ViewBag.urlReferrer = Request.UrlReferrer; 
+
+            Item item = repo.GetItemAsync(id).Result;
             if (item == null)
             {
                 return HttpNotFound();
@@ -107,16 +111,16 @@ namespace rentMyJunk.Controllers
         // GET: Items/Edit/5
         public ActionResult Edit(string id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             var item = this.repo.GetItemAsync(id).Result;
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Item item = db.Items.Find(id);
-            //if (item == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
             return View(item);
         }
 
