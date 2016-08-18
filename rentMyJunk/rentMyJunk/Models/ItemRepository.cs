@@ -49,8 +49,13 @@ namespace rentMyJunk.Models
         }
 
         //Updates a piece of junk.
-        public Task<ResourceResponse<Document>> UpdateItemAsync(Item item)
+        public Task<ResourceResponse<Document>> UpdateItemAsync(Item item, Stream image)
         {
+            BlobStorage blob = new BlobStorage();
+
+            //Save the blob stream with the guid and update the imageuri.
+            item.imageUri = blob.SaveBlob(item.id, image);
+            // 
             var doc = Client.CreateDocumentQuery<Document>(Collection.DocumentsLink)
                 .Where(d => d.Id == item.id)
                 .AsEnumerable() // why the heck do we need to do this??

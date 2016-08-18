@@ -116,32 +116,45 @@ namespace rentMyJunk.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var item = this.repo.GetItemAsync(id).Result;
+            Item item = this.repo.GetItemAsync(id).Result;
+           
             if (item == null)
             {
                 return HttpNotFound();
             }
-            return View(item);
+            var itemvm = new ItemViewModel()
+            {
+                category = item.category,
+                description = item.description,
+                ownerId = item.ownerId,
+                id = item.id,
+                imageUri = item.imageUri,
+                isAvailable = item.isAvailable,
+                ratePerDay = item.ratePerDay
+            };
+            return View(itemvm);
         }
 
         // POST: Items/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,description,category,imageUri,ownerId,isAvailable")] Item item)
+        public ActionResult Edit(ItemViewModel item)
         {
             if (ModelState.IsValid)
             {
-                // db.Entry(item).State = EntityState.Modified;
-                //  db.SaveChanges();
-                var saveResult = this.repo.SaveItem(item, null);
+                item.ownerId = User.Identity.Name;
 
-                // if isAvailable is set to false, assume en edit was a booking
-                if (!Convert.ToBoolean(item.isAvailable))
+                if (item.ImgFile != null)
                 {
-                   // item.
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        item.ImgFile.InputStream.CopyTo(ms);
+                        Task t = repo.UpdateItemAsync(item, ms);
+                        t.Wait();
+                    }
                 }
+
                 return RedirectToAction("Index");
             }
             return View(item);
