@@ -36,6 +36,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("| Details |", "Details", new { id = item.id })
+                    @Html.ActionLink(" Request |", "Index", new {controller="Request", action="Index", itemId = item.id })
                     @if (User.Identity.Name == item.ownerId)
                     {
 

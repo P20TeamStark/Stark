@@ -68,9 +68,9 @@ namespace rentMyJunk.Controllers
             request.startDate = DateTime.Now;
             request.endDate = DateTime.Now.AddDays(7);
 
-            var requestRepo = new RequestRepository();
-            Task task = requestRepo.SaveRequest(request);
-            task.Wait();
+            //var requestRepo = new RequestRepository();
+            //Task task = requestRepo.SaveRequest(request);
+            //task.Wait();
 
             using (var client = new HttpClient())
             {
@@ -79,12 +79,13 @@ namespace rentMyJunk.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 string message = string.Format(
-                    "A request for item <a href=\"https://localhost:44316/Items/Details?id={0}\">{1}</a> has been made by {2} for {3} to {4}.  <a href=\"https://localhost:44316/Items/Details?id={0}\" > Approve</a> or <a href=\"https://localhost:44316/Items/Details?id={0}\" > Deny</a>",
+                    "A request for item <a href=\"https://localhost:44316/Items/Details?id={0}\">{1}</a> has been made by {2} for {3} to {4}.  <a href=\"https://localhost:44316/Approval/Index?requestId={5}\" > Approve</a> or <a href=\"https://localhost:44316/Items/Details?id={5}\" > Deny</a>",
                     request.itemId,
                     item.description,
                     User.Identity.Name,
                     DateTime.Now.ToString(),
-                    DateTime.Now.AddDays(7).ToString()
+                    DateTime.Now.AddDays(7).ToString(),
+                    "3c6093eb-d466-4e02-8203-6a4296e54863"
                     );
 
                 var postMessage = new PostMessage { text = message };
