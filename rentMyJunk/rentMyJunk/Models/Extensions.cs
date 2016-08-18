@@ -55,7 +55,7 @@ namespace rentMyJunk.Models
                     reader.TokenType));
             }
 
-            int seconds = (int)reader.Value;
+            Int64 seconds = (Int64)reader.Value;
             return new DateTime(1970, 1, 1).AddSeconds(seconds);
         }
     }

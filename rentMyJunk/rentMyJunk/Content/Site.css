@@ -68,3 +68,8 @@ textarea {
 .dashboard-container{
     min-width: 1500px; 
 }
+
+.site-header {
+    color: #FF6F00;
+    font-family: Papyrus,fantasy;
+}
