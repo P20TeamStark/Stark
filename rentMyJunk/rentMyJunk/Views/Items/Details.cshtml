@@ -3,56 +3,66 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Item</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.imageUri)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.imageUri)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ownerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ownerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.isAvailable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.isAvailable)
-        </dd>
-
-    </dl>
+<div class="row">
+    <h2 class="app-page-headers col-md-8">@Model.description </h2>
+    <a href="@ViewBag.urlReferrer" class="col-md-2" style="padding-top: 35px"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;Back to List</a>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <img src=@Model.imageUri width="250"/>
+    </div>
+    <div class="col-md-7">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Category</label>
+                <div class="col-md-10">
+                    <p class="form-control-static">@Model.category</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Available?</label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Model.isAvailable
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Rate/day</label>
+                <div class="col-md-5">
+                    <div class="col-md-10">
+                        <p class="form-control-static">$&nbsp;@Model.ratePerDay</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Zipcode</label>
+                <div class="col-md-10">
+                    <div class="col-md-10"><a href="http://tinyurl.com/zlsdkkj" class="form-control-static">30324</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.ownerId == User.Identity.Name)
+{
+    <div class="row">
+        <div class="col-md-3 col-md-offset-6" style="text-align: right">
+            <a href="@Url.Action("Edit", "Items", new {id = Model.id})"><input type="button" value="Edit" class="btn btn-success"/></a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-3 col-md-offset-6" style="text-align: right">
+            <a href="@Url.Action("Edit", "Items", new {id = Model.id})"><input type="button" value="Request to Rent!" class="btn btn-primary" /></a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
