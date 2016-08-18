@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using rentMyJunk.Models;
+using rentMyJunk.ViewModels;
 
 namespace rentMyJunk.Controllers
 {
@@ -17,16 +20,36 @@ namespace rentMyJunk.Controllers
         private ItemRepository repo = new ItemRepository();
 
         // GET: Items
-        public ActionResult Index()
-        {
-            var items = repo.GetItemsAsync();
+        // by cat - ano, user
+        // all - ano, user
+        // my stuff only - user
 
-            if (items.Result != null)
+        public ActionResult Index(string category, string userId)
+        {
+            var items = repo.GetItemsAsync().Result;
+
+            if (items != null)
             {
-                return View(items.Result.ToList());
+                if (string.IsNullOrEmpty(category))
+                {
+                    if (string.IsNullOrEmpty(userId))
+                        return View(items.ToList());
+
+                    items = items.Where(i => i.ownerId == userId).ToList();
+                    return View(items.ToList());
+                }
+                else 
+                {
+                    items = items.Where(i => i.category == category).ToList();
+
+                    if (string.IsNullOrEmpty(userId))
+                        return View(items.ToList());
+
+                    items = items.Where(i => i.ownerId == userId).ToList();
+                    return View(items.ToList());
+                }
             }
-            else
-                return HttpNotFound();
+            return HttpNotFound();
         }
 
         public ActionResult ByCategory(string cat)
@@ -62,22 +85,46 @@ namespace rentMyJunk.Controllers
             return View();
         }
 
+
         // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,description,category,imageUri,ownerId,isAvailable")] Item item)
+        public ActionResult FileUpload(HttpPostedFileBase file)
         {
-            // stream needed
-            // 
+            if (file != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    
+                }
+
+            }
+            // after successfully uploading redirect the user
+            return RedirectToAction("Create", "Items");
+        }
+
+        [HttpPost]
+        public ActionResult Create(ItemViewModel item)
+        {
             if (ModelState.IsValid)
             {
-                db.Items.Add(item);
-                db.SaveChanges();
+                var userId = User.Identity.Name;
+                item.ownerId = userId; 
+
+                if (item.ImgFile != null)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        item.ImgFile.InputStream.CopyTo(ms);
+                        var res = repo.SaveItem(item, ms);
+                        //res.Wait(); 
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
-
             return View(item);
         }
 
@@ -154,5 +201,6 @@ namespace rentMyJunk.Controllers
             }
             base.Dispose(disposing);
         }
+       
     }
 }

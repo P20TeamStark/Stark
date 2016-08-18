@@ -318,6 +318,7 @@
     <Content Include="Content\imgs\Electronics.jpg" />
     <Content Include="Content\imgs\handtools.jpg" />
     <Content Include="Content\imgs\housewares.jpg" />
+    <Content Include="Content\imgs\pic-placeholder.jpg" />
     <Content Include="Content\imgs\profile-img.jpg" />
     <Content Include="Content\imgs\Recreationalequipment.jpg" />
     <Content Include="Content\imgs\Vehicle.jpg" />

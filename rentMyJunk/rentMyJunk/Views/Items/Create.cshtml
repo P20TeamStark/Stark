@@ -1,11 +1,11 @@
-﻿@model rentMyJunk.Models.Item
+﻿@model rentMyJunk.ViewModels.ItemViewModel
 
 @{
     ViewBag.Title = "Post your Junk";
 }
 
-<h2>Post your Junk</h2>
-
+<h2 class="app-page-headers">Post your Junk</h2>
+<hr/>
 @{
     List<SelectListItem> categoryTypes = new List<SelectListItem>
     {
@@ -44,56 +44,70 @@
     };
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-   
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="control-label col-md-2">Description</div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
+    <div class="row">
+        <div class="col-md-5">
+            <img src="~/Content/imgs/pic-placeholder.jpg" width="250"/>
+           
         </div>
+        <div class="col-md-7">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.description, new {htmlAttributes = new {@class = "form-control", @placeholder = "Description"}})
+                        @Html.ValidationMessageFor(model => model.description, "", new {@class = "text-danger"})
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <div class="control-label col-md-2">Category</div>
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.category, categoryTypes, "-- Select Category --") 
-            </div>
-        </div>    
+                <div class="form-group">
+                    <div class="control-label col-md-2">Category</div>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.category, categoryTypes, "-- Select Category --")
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <div class="control-label col-md-2">Available?</div>
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.isAvailable)
-                    @Html.ValidationMessageFor(model => model.isAvailable, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="control-label col-md-2">Available?</div>
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.isAvailable)
+                            @Html.ValidationMessageFor(model => model.isAvailable, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            @Html.EditorFor(model => model.ratePerDay, new {htmlAttributes = new {@class = "form-control", @id = "rateInput", @placeholder = "Rate per day"}})
+                            @Html.ValidationMessageFor(model => model.ratePerDay, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="control-label col-md-2">Rate per day</div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ratePerDay, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.ratePerDay, "", new {@class = "text-danger"})
-            </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-md-6" style="text-align: center">
+            <input type="file" id="ImgFile" name="ImgFile" value="Upload Picture" class="btn btn-default"/>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Post it!" class="btn btn-default" />
-            </div>
+        <div class="col-md-3 col-md-offset-3" style="text-align: right">
+            <a href="@Url.Action("Index", "Home")"><input type="button" value="Cancel" class="btn btn-danger"/></a>
+            <input type="submit" value="Post it!" class="btn btn-warning app"/>
         </div>
     </div>
+    
 }
 
-<div>
-    @Html.ActionLink("Cancel", "Index")
-</div>
+@*@using (Html.BeginForm("FileUpload", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Upload Image:</label>
+    <input type="file" name="file" id="ImgFile" style="width: 100%;" />
+    <input type="submit" value="Upload" class="submit" />
+}*@
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
