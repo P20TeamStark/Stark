@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using rentMyJunk.Models;
 using rentMyJunk.ViewModels;
+using System.Threading.Tasks;
 
 namespace rentMyJunk.Controllers
 {
@@ -33,35 +34,30 @@ namespace rentMyJunk.Controllers
                 if (string.IsNullOrEmpty(category))
                 {
                     if (string.IsNullOrEmpty(userId))
+                    {
+                        ViewBag.header = "Available Junk";
                         return View(items.ToList());
+                    }
 
+                    ViewBag.header = "Your Junk";
                     items = items.Where(i => i.ownerId == userId).ToList();
                     return View(items.ToList());
                 }
                 else 
                 {
                     items = items.Where(i => i.category == category).ToList();
-
                     if (string.IsNullOrEmpty(userId))
+                    {
+                        ViewBag.header = "All Junk in the " + category + " category";
                         return View(items.ToList());
+                    }
 
+                    ViewBag.header = "All your Junk in the " + category + " category";
                     items = items.Where(i => i.ownerId == userId).ToList();
                     return View(items.ToList());
                 }
             }
             return HttpNotFound();
-        }
-
-        public ActionResult ByCategory(string cat)
-        {
-            var items = repo.GetItemsAsync();
-
-            if (items.Result != null)
-            {
-                return View(items.Result.Where(i=>i.category==cat).ToList()); 
-            }
-            else 
-                return HttpNotFound();
         }
 
         // GET: Items/Details/5
@@ -86,40 +82,20 @@ namespace rentMyJunk.Controllers
         }
 
 
-        // POST: Items/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        public ActionResult FileUpload(HttpPostedFileBase file)
-        {
-            if (file != null)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    
-                }
-
-            }
-            // after successfully uploading redirect the user
-            return RedirectToAction("Create", "Items");
-        }
-
-        [HttpPost]
+      [HttpPost]
         public ActionResult Create(ItemViewModel item)
         {
             if (ModelState.IsValid)
             {
-                var userId = User.Identity.Name;
-                item.ownerId = userId; 
+                item.ownerId = User.Identity.Name;
 
                 if (item.ImgFile != null)
                 {
                     using (MemoryStream ms = new MemoryStream())
                     {
                         item.ImgFile.InputStream.CopyTo(ms);
-                        var res = repo.SaveItem(item, ms);
-                        //res.Wait(); 
+                        Task t  = repo.SaveItem(item, ms);
+                        t.Wait();
                     }
                 }
 
@@ -155,7 +131,7 @@ namespace rentMyJunk.Controllers
             {
                 // db.Entry(item).State = EntityState.Modified;
                 //  db.SaveChanges();
-                var saveResult = this.repo.SaveItem(item, null).Result;
+                var saveResult = this.repo.SaveItem(item, null);
 
                 // if isAvailable is set to false, assume en edit was a booking
                 if (!Convert.ToBoolean(item.isAvailable))
