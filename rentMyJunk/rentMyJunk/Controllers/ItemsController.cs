@@ -40,7 +40,6 @@ namespace rentMyJunk.Controllers
                     }
 
                     ViewBag.header = "Your Junk";
-
                     items = items.Where(i => i.ownerId == userId).ToList();
                     return View(items.ToList());
                 }
@@ -96,7 +95,7 @@ namespace rentMyJunk.Controllers
                     {
                         item.ImgFile.InputStream.CopyTo(ms);
                         Task t  = repo.SaveItem(item, ms);
-                        //t.Wait();
+                        t.Wait();
                     }
                 }
 
