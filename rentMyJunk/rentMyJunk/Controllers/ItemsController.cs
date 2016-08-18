@@ -127,15 +127,16 @@ namespace rentMyJunk.Controllers
         // GET: Items/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Item item = db.Items.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
+            var item = this.repo.GetItemAsync(id).Result;
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Item item = db.Items.Find(id);
+            //if (item == null)
+            //{
+            //    return HttpNotFound();
+            //}
             return View(item);
         }
 
@@ -148,8 +149,15 @@ namespace rentMyJunk.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(item).State = EntityState.Modified;
-                db.SaveChanges();
+                // db.Entry(item).State = EntityState.Modified;
+                //  db.SaveChanges();
+                var saveResult = this.repo.SaveItem(item, null).Result;
+
+                // if isAvailable is set to false, assume en edit was a booking
+                if (!Convert.ToBoolean(item.isAvailable))
+                {
+                   // item.
+                }
                 return RedirectToAction("Index");
             }
             return View(item);
