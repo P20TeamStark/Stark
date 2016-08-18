@@ -56,7 +56,7 @@ namespace ConsoleApplication1
 
             Item i = new Item();
             i.category = "Recreational";
-            i.isAvailable = "true";
+            i.isAvailable = true; //"true";
             i.ownerId = "cmitchell@hardnox.onmicrosoft.com";
             i.description = "2016 KHS Flite 900 - 2";
             i.ratePerDay = "75";
